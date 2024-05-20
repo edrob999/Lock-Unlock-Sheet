@@ -67,13 +67,13 @@ Setup and User Guide
 ---
 
 TODO
-
 | Step |  | Description |
 |:--:|:--:|---|
-|  1 | [<img alt="copy web app" src="res/copy-web-app-button.png" width="170px" height="60px">](https://www.github.com/)| <-- Click button to copy WebApp project to your Google My Drive folder. The copy will be named "copy of LockUnlock-WebApp-v1" |
+|  1 | [<img src="res/copy-sheet-button.png" alt="copy sheet" width="170" height="60">](https://www.github.com/)| <-- Click button to copy Spreadsheet + all code to your Google My Drive folder.<br>Your copy will be named "Copy of LockUnlock-Spreadsheet-v1" |
 |  2 | x                                                | Set the projects GCP number                     |
 |  3 | x                                                | Deploy the app as a WebApp, keep the file number. You'll need it soon|
 |  4 |                                                  | <-- Click button to copy the Spreadsheet to your Google My Drive folder, the copy will be named "Copy of LockUnlock-Spreadsheet-v1"|
 |  5 | x                                                | Set the project GCP number|
 |  6 | x                                                | In the Apps Script code, find the line TODO, and replace the line
 |  7 | DOne                                             | OK! YOu're reready
+
