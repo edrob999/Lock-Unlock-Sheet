@@ -1,3 +1,5 @@
+
+
 > [!CAUTION]
 > This ReadMe and repo is still a work-in-process. Its not really ready to look at yet
 > <BR>
@@ -67,13 +69,13 @@ Setup and User Guide
 ---
 
 TODO
+
 | Step |  | Description |
 |:--:|:--:|---|
-|  1 | [<img src="res/copy-sheet-button.png" alt="copy sheet" width="170" height="60">](https://www.github.com/)| <-- Click button to copy Spreadsheet + all code to your Google My Drive folder.<br>Your copy will be named "Copy of LockUnlock-Spreadsheet-v1" |
-|  2 | x                                                | Set the projects GCP number                     |
+|  1 | [<img src="res/copy-sheet-button.png" alt="copy sheet" width="170" height="50">](https://www.github.com/)| <-- Click button to copy Spreadsheet + all code to your Google My Drive folder.<br>Your copy will be named "Copy of LockUnlock-Spreadsheet-v1" |
+|  2 |                                                  | Choose Google Sheets menu item Extensions | Apps ScriptOpen Apps Script Editor. Set the projects GCP number                     |
 |  3 | x                                                | Deploy the app as a WebApp, keep the file number. You'll need it soon|
 |  4 |                                                  | <-- Click button to copy the Spreadsheet to your Google My Drive folder, the copy will be named "Copy of LockUnlock-Spreadsheet-v1"|
 |  5 | x                                                | Set the project GCP number|
 |  6 | x                                                | In the Apps Script code, find the line TODO, and replace the line
 |  7 | DOne                                             | OK! YOu're reready
-
