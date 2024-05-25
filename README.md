@@ -12,29 +12,32 @@ Lock-Unlock-Sheet
 > This is my first GitHub open source repo! **Please :star: if you think it will be useful for people.**
 > <BR>
 
-What this repo contains
+This repo demonstrates how to programatically lock/unlock cells in a Google sheet
 ---
-This repo demonstrates a sample technique to programmatically lock/unlock cells in a Google Workspace Sheet.
-<BR>
-The sample enables you to:
+Welcome! Looking for a way to lock/unlock cells in a Google sheet? In this repo, you'll find source code and ready-to-go spreadsheet that demonstrates a technique for programmatically locking/unlocking cells in a Google Workspace Sheet, so you can:
 - Create locked forms in Google Sheets with editable form fields
 - Capture audit history as people edit the form fields
 - Unlock a single cell for editing, and lock the cell after they have finished
 - Programatically lock/unlock a cell based on business rules, such as "a user can only edit empty cells" or "person x can override text in any cell" 
 
-The sample is written entirely in Google Apps Script, distributed as open source (under the Apache2 license), you can use + change it as you wish. 
+The sample is written entirely in Google Apps Script, distributed as open source (under the Apache2 license). You can use + change it as you wish. 
 <BR>
 <BR>
-In this document you'll find a teaser video, How-it-works overview, Quickstart, How-to-customize and known issues
+In this README you'll find: 
+[Teaser video](here-is-the-teaser-video-that-shows-what-the-sample-does), 
+[How-it-works](how-works), 
+[Quickstart](quickstart), 
+[How-to-customize](how-to-customize) and 
+[Known issues](known-issues)
 <BR>
-I hope to include a try-before-you-buy sample, waiting for Google to finish OAuth verification before I publish it. 
+I hope to include a try-before-you-buy sample, but waiting for Google to finish OAuth verification before I can publish it. 
 
-### Here is the teaser video that shows what the sample does:
+### Here is the teaser video that shows what the sample does
 <BR>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
 " target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
-
+<!--
 ### Here is the try-before-you-buy sample:
 <table>
   <tr>
@@ -42,29 +45,22 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
     <td><-- Click this button to open the lock/unlock sample spreadsheet shown in the teaser video above. Your browser will need to be logged into a Google account</td>
   </tr>
 </table>
+-->
 
 How it works
 ---
+The Lock-Unlock-Sheet technique uses a dual-permission model:
+* **Google Workspace Spreadsheet:** Users open a Spreadsheet, shared with Edit permissions + each Sheet locked to prevent changes. A user clicks a button to initiate editing. The button invokes a method in a WebApp to either change a cell's contents, or unlock the cell for free-editing 
+* **WebApp:** The WebApp runs with the Spreadsheet owner's permission (it has full rights to change any content in the sheet, or unlock cells for editing). When user clicks an "Edit" button in the locked Spreadsheet, the WebApp goes to work, and becuase it is running with the owner's permission, it can either update a cell's text (for forms) or unlock a cell for editing (for free editing).
+
 > [!IMPORTANT]
-> If you are the owner of the sheet, you **always** have edit rights to every cell.
+> If you are the owner of the sheet, you **always** have edit rights to every cell, so you won't experience the locking/unlocking
 > <BR> To see it working, you'll need to use a Google account that has edit rights, but is **not the owner** of the Spreadsheet
 > 
-The Lock-Unlock-Sheet technique uses two objects running with different permissions:
-* **Google Workspace Spreadsheet:** Users interact with a Spreadsheet. The Spreadsheet is shared with Edit permissions, but each Sheet within the Spreadsheet is locked to prevent editing. Because the Spreadsheet itself has edit permissions, users can click an Edit button, but they can't edit cells or change any content in the Sheet until it is unlocked
-* **WebApp:** The WebApp runs with the Spreadsheet owner's permission (it has full rights to change any content in the sheet, or unlock cells for editing). When a user clicks an "Edit" button in the locked Spreadsheet, the spreadsheet requests the WebApp to to either set a cell's text (for forms) or unlock a cell for editing (for free editing). This diagram shows the flow for both cases:
 
-```mermaid
-%%{init: {"mirrorActors": false} }%%
-sequenceDiagram
-    actor Spreadsheet
-    participant WebApp
-    Spreadsheet->>+WebApp: Plz change cell A1 to "Dog"
-    WebApp->>-Spreadsheet: OK. A1 changed to "Dog"
-    Spreadsheet-->>+WebApp: Plz unlock B2 for Alex to edit
-    WebApp-->>-Spreadsheet: OK. B2 Cell unlocked for Alex
-```
-
-The WebApp unlocks a cell for the user using a two layers of Spreadsheet protection. The lower protection layer is the sheet-lock. The webapp unlocks ranges within the sheet-lock, then adds an upper-layer range protection to the unlocked cell to ensure only the user requesting the edit is authorized to edit the cell. This means that when a user requests to edit a cell, it is unlocked only for them. The WebApp labels each unlocked range with the editor's email address, and unix timestamp for when the editing session expires. As future cells are unlocked for editing, the WebApp first cleans up expired editing sessions. 
+Unlocking a cell for free-editing uses two layers of Spreadsheet protection. The lower layer is the sheet-lock, which locks the sheet for everyone (except you the owner). The upper layer is a range protection unlocking a cell, and ensuring only the user requesting the edit is authorized to edit the cell. This means when a user requests to edit a cell, it is unlocked only for them. The WebApp labels each unlocked range with the editor's email address, and unix timestamp for when the editing session expires. As future cells are unlocked for editing, the WebApp cleans up expired editing sessions. 
+<BR>
+Sounds complicated? We've tried to make it as simple as possible in the quickstart below
 
 Quickstart
 ---
@@ -79,29 +75,56 @@ In the steps below, you'll copy the code to your Google My Drive folder, and set
 
 
 Test the Look-Unlock-Sheet Sample
-=================================
+---------------------------------
 > [!IMPORTANT]
-> Because you are the owner of the sheet, you **always** have edit rights to every cell.
-> <BR> To see it working, use a colleague's account, someone who is **not the owner** of the Spreadsheet
+> I know I keep nagging you about this, but its critical to remember.
+> <BR>
+> You'll need to use a different account that is **not** the owner of the spreadsheet to see the lock/unlock in action.
+> <BR>
+> OK. Promise I won't mention it again.
 
-Your "Copy of LockUnlock-Spreadsheet-v1" contains two sheets
-Sheet1 demonstrates two techniques.<BR>
 
-Locked cells
----
-The sheet behaves like a 'form', all cells are locked, the only cells that can be edited are those with a blue background. Click the edit button next to each cell and enter a value. In this screenshot, we've answered  "Dog" as our favorite animal. Because the cells in the sheet are locked, the Edit button invokes the web app to make the change, using the `set-cell-text` method.
+Your "Copy of LockUnlock-Spreadsheet-v1" contains two sheets.
+<BR>
+
+### Locked cells
+Sheet1 behaves like a 'form', all cells are locked, the only cells that can be edited are those with a blue background. Click the edit button next to each cell and enter a value. In this screenshot, we've answered  "Dog" as our favorite animal. Because the cells in the sheet are locked, the Edit button invokes the web app to make the change, using the `set-cell-text` method.
 ![Sheet that behaves as a locked form](res/test-01-sheet1.png)
 
-Audit History
----
-An advantage of using the Edit button instead of allowing a free-editing, is the sheet can capture an audit history of changes. After the user has made a change in the form, the spreadsheet invokes the web apps to update an audit history, scrolling a range of cells. This is done using the `set-range-text` method. Also note we've anonymized email adddresses using the custom function `getMaskedEmail(emailAddress)`
+### Audit History
+Sheet1 also demonstrates how to record an autdit history of changes. After the user has made a change in the form, the spreadsheet invokes the web app to update a scrolling audit history range (which is also locked). This is done using the `set-range-text` method. Also note we've anonymized email adddresses using the custom function `getMaskedEmail(emailAddress)`
 ![Audit history in a spreadsheet](res/test-02-audithistory.png)
 
-Free Editing
----
+### Free Editing
 Sheet2 demonstrates unlocking a cell for free-editing. When a user positions focus on an empty cell, and clicks the Edit button, the cell is unlocked for them to edit for two minutes.<BR>
 This is done by invoking the `start-cell-edit` method. The cell remains locked for everyone except the target user (and the spreadsheet owner) for two minutes. Each time a method is called in the web app, the code performs a quick check to see if there are any expired editing sessions, and relocks the cell if the session is expired. This is how the expiry is implemented.
 ![Free editing in locked sheet](res/test-03-freeedit.png)
+
+How to Customize
+----------------
+Here are some notes for using the technique for locking/unlocking cells in your own Google Spreadsheet:
+> [!NOTE]
+> You don't need to re-deploy the WebApp. The same webapp will work with any sheet for which you are the owner, and only needs to be deployed once
+> 
+Here are the methods the WebApp makes available:<BR>
+| Method | Description |
+|******|***********|
+|`get-info` | returns the name and version of the WebApp<BR>
+|`set-cell-text`| sets the text of a cell<BR>
+|`set-range-text` |sets the text of a range<BR>
+|`lock-sheet` |locks the sheet, removing any editing session<BR>
+|`unlock-sheet` |unlocks the sheet<BR>
+|`start-cell-edit`| enables free-editing for a cell<BR>
+|`end-cell-edits`| finishes free-editing and locks the cell<BR>
+|`generate-error` | used to test your error handling<BR>
+
+Each method uses a common parameter object, which has the following fields:
+| Field | Description | Example
+| *** | *** | *** |
+
+
+
+The methods
 
 
 
