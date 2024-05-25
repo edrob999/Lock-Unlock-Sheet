@@ -25,9 +25,11 @@ The sample enables you to:
 The sample is written entirely in Google Apps Script, distributed as open source (under the Apache2 license), you can use + change it as you wish. 
 <BR>
 <BR>
-In this document you'll find a teaser video, try-before-you-buy sample, description of how-it-works, setup and user guide. 
+In this document you'll find a teaser video, How-it-works overview, Quickstart, How-to-customize and known issues
+<BR>
+I hope to include a try-before-you-buy sample, waiting for Google to finish OAuth verification before I publish it. 
 
-### Here is the teaser video that shows what it does:
+### Here is the teaser video that shows what the sample does:
 <BR>
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
 " target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
