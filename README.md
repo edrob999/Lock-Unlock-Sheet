@@ -1,5 +1,4 @@
 
-
 > [!CAUTION]
 > This ReadMe and repo is still a work-in-process. Its not really ready to look at yet
 > <BR>
@@ -65,17 +64,19 @@ sequenceDiagram
 
 The WebApp unlocks a cell for the user using a two layers of Spreadsheet protection. The lower protection layer is the sheet-lock. The webapp unlocks ranges within the sheet-lock, then adds an upper-layer range protection to the unlocked cell to ensure only the user requesting the edit is authorized to edit the cell. This means that when a user requests to edit a cell, it is unlocked only for them. The WebApp labels each unlocked range with the editor's email address, and unix timestamp for when the editing session expires. As future cells are unlocked for editing, the WebApp first cleans up expired editing sessions. 
 
-Setup and User Guide
+Quickstart
 ---
+In the steps below, you'll copy the code to your Google My Drive folder, and set up the Look-Unlock-Sheet app
+| Step | Description |
+|:--:|---|
+| [<img src="res/copy-sheet-button.png" alt="copy sheet" width="170" height="50">](https://www.github.com/)| <-- Click button to copy Spreadsheet + code to your Google My Drive folder.<br>After a couple minutes, "Copy of LockUnlock-Spreadsheet-v1" will open in the browser |
+|  2 | **Deploy WebApp.** In Google Sheets, open Apps Script editor with menu item Extensions \| Apps Script.<br>Click Deploy \| New Deployment button in the editor, and deploy as a WebApp, executing as "me" (this should already be pre-populated) |
+|  3 | **Authorize Access.** As the WebApp is deployed, you'll be asked to authorize the scopes required.<br>In this step, you're authorizing the WebApp permissions (not the Spreadsheet).<br>Wait! before clicking through everything, make sure to copy the Web app URL, you'll need it real soon|
+|  4 | **Update WebApp Url.** In Apps Script editor, navigate to the SheetCode.gs file.<br>Update the first line that reads `var LIVE_URL = "TODO"` to use your WebApp Url.<br>The line should look something like: `var LIVE_URL = "https://script.google.com/macros/s/####/exec"` |
+|  5 | **Save Your Work.** In Apps Script editor, save the project. You're finished, we're ready to go!|
+
+
 
 TODO
 
-| Step |  | Description |
-|:--:|:--:|---|
-|  1 | [<img src="res/copy-sheet-button.png" alt="copy sheet" width="170" height="50">](https://www.github.com/)| <-- Click button to copy Spreadsheet + all code to your Google My Drive folder.<br>Your copy will be named "Copy of LockUnlock-Spreadsheet-v1" |
-|  2 |                                                  | Choose Google Sheets menu item Extensions | Apps ScriptOpen Apps Script Editor. Set the projects GCP number                     |
-|  3 | x                                                | Deploy the app as a WebApp, keep the file number. You'll need it soon|
-|  4 |                                                  | <-- Click button to copy the Spreadsheet to your Google My Drive folder, the copy will be named "Copy of LockUnlock-Spreadsheet-v1"|
-|  5 | x                                                | Set the project GCP number|
-|  6 | x                                                | In the Apps Script code, find the line TODO, and replace the line
-|  7 | DOne                                             | OK! YOu're reready
+
