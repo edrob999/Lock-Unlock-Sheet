@@ -66,7 +66,7 @@ The WebApp unlocks a cell for the user using a two layers of Spreadsheet protect
 
 Quickstart
 ---
-In the steps below, you'll copy the code to your Google My Drive folder, and set up the Look-Unlock-Sheet app
+In the steps below, you'll copy the code to your Google My Drive folder, and set up the Look-Unlock-Sheet sample
 | Step | Description |
 |:--:|---|
 | [<img src="res/copy-sheet-button.png" alt="copy sheet" width="170" height="50">](https://www.github.com/)| <-- Click button to copy Spreadsheet + code to your Google My Drive folder.<br>After a couple minutes, "Copy of LockUnlock-Spreadsheet-v1" will open in the browser |
@@ -76,7 +76,31 @@ In the steps below, you'll copy the code to your Google My Drive folder, and set
 |  5 | **Save Your Work.** In Apps Script editor, save the project. You're finished, we're ready to go!|
 
 
+Test the Look-Unlock-Sheet Sample
+=================================
+> [!IMPORTANT]
+> Because you are the owner of the sheet, you **always** have edit rights to every cell.
+> <BR> To see it working, use a colleague's account, someone who is **not the owner** of the Spreadsheet
 
-TODO
+Your "Copy of LockUnlock-Spreadsheet-v1" contains two sheets
+Sheet1 demonstrates two techniques.<BR>
+
+Locked cells
+---
+The sheet behaves like a 'form', all cells are locked, the only cells that can be edited are those with a blue background. Click the edit button next to each cell and enter a value. In this screenshot, we've answered  "Dog" as our favorite animal. Because the cells in the sheet are locked, the Edit button invokes the web app to make the change, using the `set-cell-text` method.
+![Sheet that behaves as a locked form](res/test-01-sheet1.png)
+
+Audit History
+---
+An advantage of using the Edit button instead of allowing a free-editing, is the sheet can capture an audit history of changes. After the user has made a change in the form, the spreadsheet invokes the web apps to update an audit history, scrolling a range of cells. This is done using the `set-range-text` method. Also note we've anonymized email adddresses using the custom function `getMaskedEmail(emailAddress)`
+![Audit history in a spreadsheet](res/test-02-audithistory.png)
+
+Free Editing
+---
+Sheet2 demonstrates unlocking a cell for free-editing. When a user positions focus on an empty cell, and clicks the Edit button, the cell is unlocked for them to edit for two minutes.<BR>
+This is done by invoking the `start-cell-edit` method. The cell remains locked for everyone except the target user (and the spreadsheet owner) for two minutes. Each time a method is called in the web app, the code performs a quick check to see if there are any expired editing sessions, and relocks the cell if the session is expired. This is how the expiry is implemented.
+![Free editing in locked sheet](res/test-03-freeedit.png)
+
+
 
 
