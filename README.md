@@ -1,14 +1,8 @@
-> [!CAUTION]
-> This ReadMe and repo is still a work-in-process. Its not really ready to look at yet
-> <BR>
-> You're welcome to browse, but I'm still experimenting with stuff
-
-
 Lock-Unlock-Sheet
 =================
 
 > [!NOTE]
-> This is my first GitHub open source repo! **Please :star: if you think it will be useful for people.**
+> This is my first GitHub open source repo! **Please :star: if you think this sample is useful for Apps Script developers.**
 > <BR>
 
 This repo demonstrates how to programatically lock/unlock cells in a Google sheet
@@ -21,6 +15,8 @@ Welcome! Looking for a way to lock/unlock cells in a Google sheet? In this repo,
 <BR>
 This sample is written entirely in Google Apps Script, distributed as open source (under the Apache2 license). You can use + change it as you wish. The purpose of this sample is to demonstrate the technique for lock/unlock, it does not consider input sanitisation or other hardening you'd need in a production system.
 <BR>
+<BR>
+
 In this README you'll find: 
 [Teaser video](here-is-a-teaser-video-that-shows-what-the-sample-does), 
 [How-it-works](how-works), 
@@ -52,7 +48,7 @@ The Lock-Unlock-Sheet technique uses a dual-permission model:
 * **WebApp:** The WebApp runs with the Spreadsheet owner's permission (it has full rights to change any content in the sheet, or unlock cells for editing). When user clicks an "Edit" button in the locked Spreadsheet, the WebApp goes to work, and becuase it is running with the owner's permission, it can either update a cell's text (for forms) or unlock a cell for editing (for free editing).
 
 > [!IMPORTANT]
-> If you are the owner of the sheet, you **always** have edit rights to every cell, so you won't experience the locking/unlocking
+> If you are the owner of the sheet, you **always** have edit rights to every cell, so you won't have the full lock/unlock experience
 > <BR> To see it working, you'll need to use a Google account that has edit rights, but is **not the owner** of the Spreadsheet
 > 
 
@@ -85,6 +81,8 @@ Your "Copy of LockUnlock-Spreadsheet-v1" contains two sheets.
 
 ### Locked cells
 Sheet1 behaves like a 'form', all cells are locked, the only cells that can be edited are those with a blue background. Click the edit button next to each cell and enter a value. In this screenshot, we've answered  "Dog" as our favorite animal. Because the cells in the sheet are locked, the Edit button invokes the web app to make the change, using the `set-cell-text` method.
+<BR>
+<BR>
 ![Sheet that behaves as a locked form](res/test-01-form.png)
 
 ### Audit History
@@ -93,6 +91,8 @@ Sheet1 also demonstrates how to record an audit history of changes. After the us
 ### Free Editing
 Sheet2 demonstrates unlocking a cell for free-editing. When a user positions focus on an empty cell, and clicks the Edit button, the cell is unlocked for them to edit for two minutes.<BR>
 This is done by invoking the `start-cell-edit` method. The cell remains locked for everyone except the target user (and the spreadsheet owner) for two minutes. Each time a method is called in the web app, the code performs a quick check to see if there are any expired editing sessions, and relocks the cell if the session is expired. This is how the expiry is implemented.
+<BR>
+<BR>
 ![Free editing in locked sheet](res/test-02-freeedit.png)
 
 How to Customize
@@ -106,8 +106,8 @@ Here are the methods the WebApp makes available:<BR>
 | Method          | Parameters                                                          | Description
 |-----------------|---------------------------------------------------------------------|-------------|
 |`get-info`       |                                                                     | return the name and version of the WebApp 
-|`set-cell-text`  | `spreadsheetId` `sheetName1` `a1Notation` `text`                    | set the text of a cell (text contians a string)
-|`set-range-text` | `spreadsheetId` `sheetName1` `a1Notation` `text`                    | set the text of a range (text contains a 2 dimensional array)
+|`set-cell-text`  | `spreadsheetId` `sheetName1` `a1Notation` `text`                    | set the text of a cell (text parameter = string)
+|`set-range-text` | `spreadsheetId` `sheetName1` `a1Notation` `text`                    | set the text of a range (text parameter = 2 dimensional array)
 |`lock-sheet`     | `spreadsheetId` `sheetName1`                                        | lock the sheet, removing any open editing session
 |`unlock-sheet`   | `spreadsheetId` `sheetName1`                                        | unlock the sheet
 |`start-cell-edit`| `spreadsheetId` `sheetName1` `a1Notation` `emailAddress` `editTime` | start free-editing for a cell
@@ -140,7 +140,7 @@ There are known issues in this sample application. It is not designed for robust
 - [ ] `start-cell-edit` It is possible to extend the editing range, using the cell shortcut menu. Thanks Oliver C
 - [ ] It is possible to create a copy of the locked sheet (with no purpose, the copy will also be locked). Thanks Brett G
 
-Looking forward to hearing any feedback, and **Please :star: if you think this sample will be useful for other people.**
+Looking forward to hearing any feedback, and **Please :star: if you think this sample is useful.**
 
 
 
