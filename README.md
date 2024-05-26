@@ -32,9 +32,9 @@ I still hope to include a try-before-you-buy sample, but waiting for Google to f
 
 ### Here is a teaser video that shows what the sample does
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
-" target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
-alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=mMHZOjfS9K8
+" target="_blank"><img src="http://img.youtube.com/vi/mMHZOjfS9K8/0.jpg" 
+alt="Programatically lock unlock cells in a Google sheet" width="240" height="180" border="10" /></a>
 <!--
 ### Here is the try-before-you-buy sample:
 <table>
@@ -75,12 +75,10 @@ In the steps below, you'll copy the code to your Google My Drive folder, and set
 Test the Look-Unlock-Sheet Sample
 ---------------------------------
 > [!IMPORTANT]
-> I know I keep nagging you about this, but its critical to remember.
+> OK, I know I'm repeating myself, but this is important:
 > <BR>
 > You'll need to use a different account that is **not** the owner of the spreadsheet to see the lock/unlock in action.
 > <BR>
-> OK. Promise I won't mention it again.
-
 
 Your "Copy of LockUnlock-Spreadsheet-v1" contains two sheets.
 <BR>
