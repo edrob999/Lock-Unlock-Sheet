@@ -54,7 +54,8 @@ The Lock-Unlock-Sheet technique uses a dual-permission model:
 
 Unlocking a cell for free-editing uses two layers of Spreadsheet protection. The lower layer is the sheet-lock, which locks the sheet for everyone (except you the owner). The upper layer is a range protection unlocking a cell, and ensuring only the user requesting the edit is authorized to edit the cell. This means when a user requests to edit a cell, it is unlocked only for them. The WebApp labels each unlocked range with the editor's email address, and unix timestamp for when the editing session expires. As future cells are unlocked for editing, the WebApp cleans up expired editing sessions. 
 <BR>
-Sounds complicated? We've tried to make it as simple as possible in the quickstart below
+<BR>
+Sounds complicated? We've made the technique as simple as possible in the quickstart below.
 
 Quickstart
 ---
@@ -67,6 +68,7 @@ In the steps below, you'll copy the code to your Google My Drive folder, and set
 |  4 | **Update WebApp Url.** In Apps Script editor, navigate to the SheetCode.gs file.<br>Update the first line that reads `var LIVE_URL = "TODO"` to use your WebApp Url.<br>The line should look something like: `var LIVE_URL = "https://script.google.com/macros/s/####/exec"` |
 |  5 | **Save Your Work.** In Apps Script editor, save the project. You're finished, we're ready to go!|
 
+The full Google Apps Script source code is also included in this repo.
 
 Test the Look-Unlock-Sheet Sample
 ---------------------------------
