@@ -62,7 +62,7 @@ Quickstart
 In the steps below, you'll copy the code to your Google My Drive folder, and set up the Look-Unlock-Sheet sample
 | Step | Description |
 |:--:|---|
-| [<img src="res/copy-sheet-button.png" alt="copy sheet" width="170" height="60">](https://docs.google.com/spreadsheets/d/1v0-gRB5bTq_9HZ3vGA56-S1ANtbSTOxI3ZQkQdM7oCg/copy)| <-- Click button to copy Spreadsheet + code to your Google My Drive folder.<br>After a couple minutes, "Copy of LockUnlock-Spreadsheet-v1" will open in the browser |
+| [<img src="res/copy-sheet-button.png?raw=true" alt="copy sheet" width="170" height="60">](https://docs.google.com/spreadsheets/d/1v0-gRB5bTq_9HZ3vGA56-S1ANtbSTOxI3ZQkQdM7oCg/copy)| <-- Click button to copy Spreadsheet + code to your Google My Drive folder.<br>After a couple minutes, "Copy of LockUnlock-Spreadsheet-v1" will open in the browser |
 |  2 | **Deploy WebApp.** In Google Sheets, open Apps Script editor with menu item Extensions \| Apps Script.<br>Click Deploy \| New Deployment button in the editor, and deploy as a WebApp, executing as "me" (this setting should already be pre-populated) |
 |  3 | **Authorize Access.** As the WebApp is deployed, you'll be asked to authorize the scopes required.<br>In this step, you're authorizing the WebApp permissions (not the Spreadsheet).<br>Wait! before clicking through everything, make sure to copy the Web app URL, you'll need it real soon|
 |  4 | **Update WebApp Url.** In Apps Script editor, navigate to the SheetCode.gs file.<br>Update the first line that reads `var LIVE_URL = "TODO"` to use your WebApp Url.<br>The line should look something like: `var LIVE_URL = "https://script.google.com/macros/s/####/exec"` |
