@@ -18,11 +18,11 @@ This sample is written entirely in Google Apps Script, distributed as open sourc
 <BR>
 
 In this README you'll find: 
-[Teaser video](here-is-a-teaser-video-that-shows-what-the-sample-does), 
-[How-it-works](how-works), 
-[Quickstart](quickstart), 
-[How-to-customize](how-to-customize) and 
-[Known issues](known-issues)
+[Teaser video](#here-is-a-teaser-video-that-shows-what-the-sample-does), 
+[How-it-works](#how-it-works), 
+[Quickstart](#quickstart), 
+[How-to-customize](#how-to-customize) and 
+[Known issues](#known-issues)
 <BR>
 I still hope to include a try-before-you-buy sample, but waiting for Google to finish OAuth verification before its possible to publish it. 
 
