@@ -13,26 +13,25 @@ Lock-Unlock-Sheet
 
 This repo demonstrates how to programatically lock/unlock cells in a Google sheet
 ---
-Welcome! Looking for a way to lock/unlock cells in a Google sheet? In this repo, you'll find source code and ready-to-go spreadsheet that demonstrates a technique for programmatically locking/unlocking cells in a Google Workspace Sheet, so you can:
+Welcome! Looking for a way to lock/unlock cells in a Google sheet? In this repo, you'll find source code and ready-to-go spreadsheet sample that demonstrates a technique for programmatically locking/unlocking cells in a Google Workspace Sheet, so you can:
 - Create locked forms in Google Sheets with editable form fields
 - Capture audit history as people edit the form fields
 - Unlock a single cell for editing, and lock the cell after they have finished
 - Programatically lock/unlock a cell based on business rules, such as "a user can only edit empty cells" or "person x can override text in any cell" 
-
-The sample is written entirely in Google Apps Script, distributed as open source (under the Apache2 license). You can use + change it as you wish. 
 <BR>
+This sample is written entirely in Google Apps Script, distributed as open source (under the Apache2 license). You can use + change it as you wish. The purpose of this sample is to demonstrate the technique for lock/unlock, it does not consider input sanitisation or other hardening you'd need in a production system.
 <BR>
 In this README you'll find: 
-[Teaser video](here-is-the-teaser-video-that-shows-what-the-sample-does), 
+[Teaser video](here-is-a-teaser-video-that-shows-what-the-sample-does), 
 [How-it-works](how-works), 
 [Quickstart](quickstart), 
 [How-to-customize](how-to-customize) and 
 [Known issues](known-issues)
 <BR>
-I hope to include a try-before-you-buy sample, but waiting for Google to finish OAuth verification before I can publish it. 
+I still hope to include a try-before-you-buy sample, but waiting for Google to finish OAuth verification before its possible to publish it. 
 
-### Here is the teaser video that shows what the sample does
-<BR>
+### Here is a teaser video that shows what the sample does
+
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=YOUTUBE_VIDEO_ID_HERE
 " target="_blank"><img src="http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
@@ -44,8 +43,8 @@ alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
     <td><-- Click this button to open the lock/unlock sample spreadsheet shown in the teaser video above. Your browser will need to be logged into a Google account</td>
   </tr>
 </table>
+<BR>
 -->
-
 How it works
 ---
 The Lock-Unlock-Sheet technique uses a dual-permission model:
@@ -66,7 +65,7 @@ Quickstart
 In the steps below, you'll copy the code to your Google My Drive folder, and set up the Look-Unlock-Sheet sample
 | Step | Description |
 |:--:|---|
-| [<img src="res/copy-sheet-button.png" alt="copy sheet" width="170" height="50">](https://www.github.com/)| <-- Click button to copy Spreadsheet + code to your Google My Drive folder.<br>After a couple minutes, "Copy of LockUnlock-Spreadsheet-v1" will open in the browser |
+| [<img src="res/copy-sheet-button.png" alt="copy sheet" width="170" height="50">](https://docs.google.com/spreadsheets/d/1v0-gRB5bTq_9HZ3vGA56-S1ANtbSTOxI3ZQkQdM7oCg/copy)| <-- Click button to copy Spreadsheet + code to your Google My Drive folder.<br>After a couple minutes, "Copy of LockUnlock-Spreadsheet-v1" will open in the browser |
 |  2 | **Deploy WebApp.** In Google Sheets, open Apps Script editor with menu item Extensions \| Apps Script.<br>Click Deploy \| New Deployment button in the editor, and deploy as a WebApp, executing as "me" (this should already be pre-populated) |
 |  3 | **Authorize Access.** As the WebApp is deployed, you'll be asked to authorize the scopes required.<br>In this step, you're authorizing the WebApp permissions (not the Spreadsheet).<br>Wait! before clicking through everything, make sure to copy the Web app URL, you'll need it real soon|
 |  4 | **Update WebApp Url.** In Apps Script editor, navigate to the SheetCode.gs file.<br>Update the first line that reads `var LIVE_URL = "TODO"` to use your WebApp Url.<br>The line should look something like: `var LIVE_URL = "https://script.google.com/macros/s/####/exec"` |
@@ -88,16 +87,15 @@ Your "Copy of LockUnlock-Spreadsheet-v1" contains two sheets.
 
 ### Locked cells
 Sheet1 behaves like a 'form', all cells are locked, the only cells that can be edited are those with a blue background. Click the edit button next to each cell and enter a value. In this screenshot, we've answered  "Dog" as our favorite animal. Because the cells in the sheet are locked, the Edit button invokes the web app to make the change, using the `set-cell-text` method.
-![Sheet that behaves as a locked form](res/test-01-sheet1.png)
+![Sheet that behaves as a locked form](res/test-01-form.png)
 
 ### Audit History
-Sheet1 also demonstrates how to record an autdit history of changes. After the user has made a change in the form, the spreadsheet invokes the web app to update a scrolling audit history range (which is also locked). This is done using the `set-range-text` method. Also note we've anonymized email adddresses using the custom function `getMaskedEmail(emailAddress)`
-![Audit history in a spreadsheet](res/test-02-audithistory.png)
+Sheet1 also demonstrates how to record an audit history of changes. After the user has made a change in the form, the spreadsheet invokes the web app to update a scrolling audit history range (which is also locked). This is done using the `set-range-text` method. Also note we've anonymized email adddresses using the custom function `getMaskedEmail(emailAddress)`
 
 ### Free Editing
 Sheet2 demonstrates unlocking a cell for free-editing. When a user positions focus on an empty cell, and clicks the Edit button, the cell is unlocked for them to edit for two minutes.<BR>
 This is done by invoking the `start-cell-edit` method. The cell remains locked for everyone except the target user (and the spreadsheet owner) for two minutes. Each time a method is called in the web app, the code performs a quick check to see if there are any expired editing sessions, and relocks the cell if the session is expired. This is how the expiry is implemented.
-![Free editing in locked sheet](res/test-03-freeedit.png)
+![Free editing in locked sheet](res/test-02-freeedit.png)
 
 How to Customize
 ----------------
@@ -114,8 +112,8 @@ Here are the methods the WebApp makes available:<BR>
 |`set-range-text` | `spreadsheetId` `sheetName1` `a1Notation` `text`                    | set the text of a range (text contains a 2 dimensional array)
 |`lock-sheet`     | `spreadsheetId` `sheetName1`                                        | lock the sheet, removing any open editing session
 |`unlock-sheet`   | `spreadsheetId` `sheetName1`                                        | unlock the sheet
-|`start-cell-edit`| `spreadsheetId` `sheetName1` `a1Notation` `emailAddress` `editTime` | enable free-editing for a cell
-|`end-cell-edit`  | `spreadsheetId` `sheetName1` `emailAddress`                         | finishes free-editing session
+|`start-cell-edit`| `spreadsheetId` `sheetName1` `a1Notation` `emailAddress` `editTime` | start free-editing for a cell
+|`end-cell-edit`  | `spreadsheetId` `sheetName1` `emailAddress`                         | end free-editing session for a user
 |`generate-error` | `text`                                                              | generate an error (to test your error handling). text can be 0,1,2
 
 Here is how you call the WebApp from your Apps Script Spreadsheet code, using the helper method `execCommand`.
@@ -137,14 +135,14 @@ See the source code for more examples!
 
 Known issues
 ------------
-There are known issues in this sample application. Its not foolproof, and there is no input validation
+There are known issues in this sample application. It is not designed for robust input validation, and we list the known issues below:
 - [ ] Clicking outside the edit box causes an error (standard Apps Script behavior). Thanks Oliver C
 - [ ] `set-cell-text` Doesn't allow an empty string in the sample. Thanks Oliver C
 - [ ] `set-cell-text` Using a formula as the `text` parameter, inserts the formula into the cell. 
 - [ ] `start-cell-edit` It is possible to extend the editing range, using the cell shortcut menu. Thanks Oliver C
 - [ ] It is possible to create a copy of the locked sheet (with no purpose, the copy will also be locked). Thanks Brett G
 
-Let me know if you find anything else, and  **Please :star: if you think this sample will be useful for other people.**
+Looking forward to hearing any feedback, and **Please :star: if you think this sample will be useful for other people.**
 
 
 
