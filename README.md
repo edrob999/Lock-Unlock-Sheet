@@ -1,4 +1,3 @@
-
 > [!CAUTION]
 > This ReadMe and repo is still a work-in-process. Its not really ready to look at yet
 > <BR>
@@ -106,26 +105,46 @@ Here are some notes for using the technique for locking/unlocking cells in your 
 > [!NOTE]
 > You don't need to re-deploy the WebApp. The same webapp will work with any sheet for which you are the owner, and only needs to be deployed once
 > 
+
 Here are the methods the WebApp makes available:<BR>
-| Method | Description |
-|******|***********|
-|`get-info` | returns the name and version of the WebApp<BR>
-|`set-cell-text`| sets the text of a cell<BR>
-|`set-range-text` |sets the text of a range<BR>
-|`lock-sheet` |locks the sheet, removing any editing session<BR>
-|`unlock-sheet` |unlocks the sheet<BR>
-|`start-cell-edit`| enables free-editing for a cell<BR>
-|`end-cell-edits`| finishes free-editing and locks the cell<BR>
-|`generate-error` | used to test your error handling<BR>
+| Method          | Parameters                                                          | Description
+|-----------------|---------------------------------------------------------------------|-------------|
+|`get-info`       |                                                                     | return the name and version of the WebApp 
+|`set-cell-text`  | `spreadsheetId` `sheetName1` `a1Notation` `text`                    | set the text of a cell (text contians a string)
+|`set-range-text` | `spreadsheetId` `sheetName1` `a1Notation` `text`                    | set the text of a range (text contains a 2 dimensional array)
+|`lock-sheet`     | `spreadsheetId` `sheetName1`                                        | lock the sheet, removing any open editing session
+|`unlock-sheet`   | `spreadsheetId` `sheetName1`                                        | unlock the sheet
+|`start-cell-edit`| `spreadsheetId` `sheetName1` `a1Notation` `emailAddress` `editTime` | enable free-editing for a cell
+|`end-cell-edit`  | `spreadsheetId` `sheetName1` `emailAddress`                         | finishes free-editing session
+|`generate-error` | `text`                                                              | generate an error (to test your error handling). text can be 0,1,2
 
-Each method uses a common parameter object, which has the following fields:
-| Field | Description | Example
-| *** | *** | *** |
+Here is how you call the WebApp from your Apps Script Spreadsheet code, using the helper method `execCommand`.
+In the following example, we unlock the cell A1 in the active sheet for 10 minutes
+```
+var retVal = execCommand("start-cell-edit", {
+  spreadsheetId: SpreadsheetApp.getActive().getId(),
+  sheetName: SpreadsheetApp.getActiveSheet().getName(),
+  a1Notation: "A1",
+  emailAddress: Session.getActiveUser().getEmail(),
+  editTime: 10
+})
+```
+We can then check 'retVal' (the returned value) for any errors returned from the WebApp
+```
+if( !retVal.ok) SpreadsheetApp.getUi().alert(retVal.errorMessage)
+```
+See the source code for more examples!
 
+Known issues
+------------
+There are known issues in this sample application. Its not foolproof, and there is no input validation
+- [ ] Clicking outside the edit box causes an error (standard Apps Script behavior). Thanks Oliver C
+- [ ] `set-cell-text` Doesn't allow an empty string in the sample. Thanks Oliver C
+- [ ] `set-cell-text` Using a formula as the `text` parameter, inserts the formula into the cell. 
+- [ ] `start-cell-edit` It is possible to extend the editing range, using the cell shortcut menu. Thanks Oliver C
+- [ ] It is possible to create a copy of the locked sheet (with no purpose, the copy will also be locked). Thanks Brett G
 
-
-The methods
-
+Let me know if you find anything else, and  **Please :star: if you think this sample will be useful for other people.**
 
 
 
